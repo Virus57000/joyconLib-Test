@@ -21,19 +21,27 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //Create a new Joycon with the identifier of the left joycon
         Joycon joycon = new Joycon(JoyconConstant.JOYCON_LEFT);
+        //Set the listener for the Joycon and create a new Listener on the go
         joycon.setListener(new JoyconListener() {
+            //Override the method to do what you want with the inputs
             @Override
             public void handleNewInput(JoyconEvent je) {
+                //Navigate in the inputs map
                 for (Map.Entry<String, Boolean> entry : je.getNewInputs().entrySet()) {
+                    //Print to the console the name of the button and his state
                     System.out.print("Button: " + entry.getKey() + " is " + (entry.getValue() ? "ON \t" : "OFF\t"));
-                    if (entry.getKey().equals(JoyconConstant.CAPTURE) || entry.getKey().equals(JoyconConstant.HOME)) {
+                    //If the button is the capture button it will stop the progam
+                    if (entry.getKey().equals(JoyconConstant.CAPTURE)) {
                         System.exit(0);
-                    } else if (entry.getKey().equals(JoyconConstant.MINUS) || entry.getKey().equals(JoyconConstant.PLUS)) {
+                        //If the button is the minus button it will close the connection with the joycon
+                    } else if (entry.getKey().equals(JoyconConstant.MINUS)) {
                         joycon.close();
                     }
                 }
-                System.out.println("Joystick: " + je.getJoystick());
+                //Print to the console the position of the joystick
+                System.out.println("Joystick\tX: " + je.getHorizontal() + "\tY: " + je.getVertical());
             }
         });
     }
