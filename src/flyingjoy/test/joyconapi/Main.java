@@ -42,6 +42,8 @@ public class Main {
                 }
                 //Print to the console the position of the joystick
                 System.out.println("Joystick\tX: " + je.getHorizontal() + "\tY: " + je.getVertical());
+
+                System.out.println("Battery: " + je.getBattery());
             }
         });
     }
